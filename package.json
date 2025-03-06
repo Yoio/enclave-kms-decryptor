@@ -1,0 +1,15 @@
+{
+  "name": "enclave-kms-decryptor",
+  "version": "1.0.0",
+  "description": "AWS Nitro Enclave KMS 解密器",
+  "main": "src/enclave.js",
+  "scripts": {
+    "start": "node src/enclave.js",
+    "test": "node src/parent.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-kms": "^3.0.0",
+    "net": "^1.0.2",
+    "vsock": "^1.0.0"
+  }
+} 

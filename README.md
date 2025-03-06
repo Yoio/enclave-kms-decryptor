@@ -11,7 +11,7 @@
 
 ## 前置要求
 
-- Rust 工具链
+- Node.js 18+
 - AWS 凭证配置
 - AWS KMS 密钥
 - Docker
@@ -20,12 +20,18 @@
 
 ## 配置
 
-1. 在 `src/main.rs` 中替换 `YOUR_KEY_ID` 为实际的 AWS KMS 密钥 ID
+1. 设置环境变量：
+   - `AWS_REGION`：AWS 区域（默认为 ap-northeast-1）
+   - `KMS_KEY_ID`：KMS 密钥 ID
+
 2. 确保 AWS 凭证已正确配置（可以通过环境变量或 AWS 凭证文件）
 
 ## 构建 Enclave 镜像
 
 ```bash
+# 安装依赖
+npm install
+
 # 构建 Docker 镜像
 docker build -t enclave-kms-decryptor .
 
@@ -42,7 +48,7 @@ nitro-cli run-enclave --eif-path enclave-kms-decryptor.eif --cpu-count 2 --memor
 
 2. 在父实例中运行测试程序：
 ```bash
-cargo run --bin parent
+npm test
 ```
 
 ## 安全说明
@@ -58,5 +64,5 @@ cargo run --bin parent
 - 确保 enclave 有足够的权限访问 AWS KMS
 - vsock 通信仅在同一实例内的 enclave 和父实例之间有效
 - 建议在生产环境中添加适当的日志记录和监控
-- 确保 AWS 区域设置正确（默认为 ap-northeast-1）
+- 确保 AWS 区域设置正确
 - 在生产环境中使用适当的资源限制（CPU、内存等） 
